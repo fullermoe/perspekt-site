@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Perspekt — Support</title>
+<style>
+@font-face { font-family: "Newsreader"; src: url("fonts/Newsreader.ttf") format("truetype"); font-weight: 200 800; }
+@font-face { font-family: "Spline Sans Mono"; src: url("fonts/SplineSansMono.ttf") format("truetype"); font-weight: 300 700; }
+:root { --bg:#F4F2EB; --ink:#1E2A28; --muted:#6E7672; --accent:#375C52; --hairline:#DAD6C9; }
+@media (prefers-color-scheme: dark) {
+  :root { --bg:#141B1A; --ink:#E8E5DA; --muted:#8A928D; --accent:#6FA293; --hairline:#2A3330; }
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { background: var(--bg); }
+body { background: var(--bg); color: var(--ink); font-family: "Newsreader", Georgia, serif; }
+.page { max-width: 640px; margin: 0 auto; padding: 48px clamp(24px, 6vw, 64px) 96px; }
+.mono { font-family: "Spline Sans Mono", monospace; font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
+a.mark { font-weight: 300; font-size: 30px; color: var(--ink); text-decoration: none; }
+a.mark span { color: var(--accent); }
+h1 { font-weight: 300; font-size: 34px; margin: 48px 0 24px; }
+h2 { font-weight: 400; font-size: 22px; margin: 34px 0 10px; }
+p { font-size: 19px; font-weight: 300; line-height: 1.6; margin-bottom: 18px; max-width: 56ch; }
+a { color: var(--accent); }
+</style>
+</head>
+<body>
+<div class="page">
+  <a class="mark" href="/">P<span>.</span></a>
+  <h1>Support</h1>
+  <p>Write to <a href="mailto:hello@perspekt.app">hello@perspekt.app</a> — a person reads it.</p>
+  <h2>The drop didn't arrive?</h2>
+  <p>Open the app once — drops are scheduled by your phone itself, and iOS occasionally clears the schedule after a restart or an update. Also check Settings&nbsp;→&nbsp;Perspekt&nbsp;→&nbsp;Notifications, and that a Focus mode isn't quieting things at your delivery time.</p>
+  <h2>Found a statistic you believe is wrong?</h2>
+  <p>Tell us. Every drop links its source, and every statistic is re-verified annually — but if you catch something first, we genuinely want to know. Corrections make the whole thing worth trusting.</p>
+  <h2>Purchases</h2>
+  <p>Subscriptions and refunds are managed by Apple: Settings&nbsp;→&nbsp;your name&nbsp;→&nbsp;Subscriptions, or <a href="https://reportaproblem.apple.com">reportaproblem.apple.com</a>. "Restore purchases" in the app's settings brings Plus back on a new phone.</p>
+</div>
+</body>
+</html>

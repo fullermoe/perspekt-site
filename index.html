@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Perspekt — One real reason a day. Be grateful.</title>
+<meta name="description" content="Perspekt sends one verified, real-world statistic a day — a drop of perspective that reminds you how much you have. No accounts. No streaks. Be grateful.">
+<style>
+@font-face { font-family: "Newsreader"; src: url("fonts/Newsreader.ttf") format("truetype"); font-weight: 200 800; }
+@font-face { font-family: "Newsreader"; src: url("fonts/Newsreader-Italic.ttf") format("truetype"); font-weight: 200 800; font-style: italic; }
+@font-face { font-family: "Spline Sans Mono"; src: url("fonts/SplineSansMono.ttf") format("truetype"); font-weight: 300 700; }
+:root {
+  --bg:#F4F2EB; --ink:#1E2A28; --muted:#6E7672;
+  --accent:#375C52; --accent-soft:#5E8A7D; --hairline:#DAD6C9; --track:#E4E0D3;
+  --glow-warm:#F9F0DA; --glow-cool:#E8EEE3;
+}
+@media (prefers-color-scheme: dark) {
+  :root { --bg:#141B1A; --ink:#E8E5DA; --muted:#8A928D;
+    --accent:#6FA293; --accent-soft:#6FA293; --hairline:#2A3330; --track:#243030;
+    --glow-warm:#1C2721; --glow-cool:#17232B; }
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+::selection { background: var(--accent); color: var(--bg); }
+html { background: var(--bg); scroll-behavior: smooth; }
+body {
+  background: var(--bg); color: var(--ink);
+  font-family: "Newsreader", Georgia, serif;
+  overflow-x: hidden;
+}
+
+/* ---- ambient washes: light moving across paper -------------------------- */
+.ambient { position: fixed; inset: 0; z-index: -2; overflow: hidden; }
+.ambient i { content: ""; position: absolute; border-radius: 50%; filter: blur(90px); opacity: .55; }
+.ambient i:nth-child(1) {
+  width: 72vmax; height: 72vmax; background: var(--glow-warm);
+  top: -20vmax; left: -12vmax; animation: driftA 47s ease-in-out infinite alternate;
+}
+.ambient i:nth-child(2) {
+  width: 64vmax; height: 64vmax; background: var(--glow-cool);
+  bottom: -24vmax; right: -14vmax; animation: driftB 59s ease-in-out infinite alternate;
+}
+@keyframes driftA { from { transform: translate(0,0); } to { transform: translate(9vmax, 6vmax); } }
+@keyframes driftB { from { transform: translate(0,0); } to { transform: translate(-8vmax, -7vmax); } }
+
+/* ---- paper grain --------------------------------------------------------- */
+body::after {
+  content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none; opacity: .028;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+@media (prefers-reduced-motion: reduce) {
+  .ambient i { animation: none; }
+  .rise, .rise-late { opacity: 1 !important; transform: none !important; }
+  .line .fill { transition: none !important; }
+}
+
+.mono {
+  font-family: "Spline Sans Mono", monospace;
+  font-size: 12px; letter-spacing: .16em; text-transform: uppercase;
+  color: var(--muted); font-weight: 400;
+}
+header {
+  display: flex; justify-content: space-between; align-items: baseline;
+  padding: 30px clamp(24px, 6vw, 72px);
+}
+.mark { font-weight: 300; font-size: 32px; color: var(--ink); text-decoration: none; letter-spacing: -.01em; }
+.mark span { color: var(--accent-soft); }
+
+/* ---- the drop: the entire first screen ----------------------------------- */
+.fold {
+  min-height: calc(100svh - 96px);
+  display: flex; flex-direction: column; justify-content: center;
+  max-width: 860px; margin: 0 auto;
+  padding: 12px clamp(24px, 6vw, 72px) 96px;
+}
+.rise { opacity: 0; transform: translateY(14px); transition: opacity .9s ease, transform .9s ease; }
+.rise.in { opacity: 1; transform: none; }
+#drop {
+  font-weight: 300; font-size: clamp(32px, 5.8vw, 58px);
+  line-height: 1.34; letter-spacing: -0.012em;
+  margin: 30px 0 56px; text-wrap: balance; min-height: 2.7em;
+}
+.scale { border-top: 1px solid var(--hairline); padding-top: 26px; margin-bottom: 40px; }
+.bignum {
+  font-weight: 300; font-size: clamp(44px, 8vw, 84px);
+  letter-spacing: -0.02em; line-height: 1;
+  font-variant-numeric: tabular-nums;
+  color: var(--accent); margin-bottom: 12px;
+}
+.scaleline { max-width: 58ch; line-height: 1.8; }
+.glyphrow {
+  display: flex; align-items: center; flex-wrap: wrap;
+  gap: 9px; margin: 20px 0 16px; color: var(--accent);
+}
+.glyphrow svg.stadium { width: 44px; height: 44px; }
+.glyphrow svg.flag { width: 51px; height: 34px; border-radius: 4px; box-shadow: inset 0 0 0 1px var(--hairline); opacity: .92; }
+.glyphrow .plus { font-family: "Spline Sans Mono", monospace; font-size: 15px; color: var(--muted); padding: 0 2px; }
+.meta { display: flex; justify-content: space-between; gap: 16px; padding-top: 15px; border-top: 1px solid var(--hairline); }
+.meta a { color: var(--muted); text-decoration: none; border-bottom: 1px solid var(--hairline); transition: color .3s, border-color .3s; }
+.meta a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+.scrollcue { margin-top: 64px; }
+.scrollcue a { color: var(--muted); text-decoration: none; }
+.scrollcue a:hover { color: var(--accent); }
+
+/* ---- the ritual ----------------------------------------------------------- */
+.ritual {
+  max-width: 860px; margin: 0 auto;
+  padding: 110px clamp(24px, 6vw, 72px) 40px;
+}
+.ritual h2, .why h2 {
+  font-weight: 300; font-style: italic; font-size: clamp(26px, 4vw, 36px);
+  letter-spacing: -.01em; margin-bottom: 54px;
+}
+.beat {
+  display: grid; grid-template-columns: 84px 1fr; gap: 26px; align-items: baseline;
+  padding: 30px 0; border-top: 1px solid var(--hairline);
+}
+.beat:last-of-type { border-bottom: 1px solid var(--hairline); }
+.beat .n { font-family: "Spline Sans Mono", monospace; font-size: 13px; letter-spacing: .16em; color: var(--accent); }
+.beat .what { font-weight: 300; font-size: clamp(21px, 3vw, 27px); line-height: 1.45; max-width: 30ch; }
+.beat .what i { font-style: italic; }
+@media (max-width: 560px) { .beat { grid-template-columns: 1fr; gap: 8px; padding: 24px 0; } }
+
+/* ---- giving --------------------------------------------------------------- */
+.giving {
+  max-width: 860px; margin: 0 auto;
+  padding: 110px clamp(24px, 6vw, 72px) 20px;
+}
+.giving h2 {
+  font-weight: 300; font-style: italic; font-size: clamp(26px, 4vw, 36px);
+  letter-spacing: -.01em; margin-bottom: 30px;
+}
+.giving p.lead {
+  font-weight: 300; font-size: clamp(22px, 3.2vw, 29px);
+  line-height: 1.5; letter-spacing: -.008em; max-width: 34ch; margin-bottom: 54px;
+}
+.cause {
+  display: grid; grid-template-columns: 84px 1fr; gap: 26px; align-items: baseline;
+  padding: 24px 0; border-top: 1px solid var(--hairline);
+}
+.cause:last-of-type { border-bottom: 1px solid var(--hairline); }
+.cause .n { font-family: "Spline Sans Mono", monospace; font-size: 13px; letter-spacing: .16em; text-transform: uppercase; color: var(--accent); }
+.cause .what { font-weight: 300; font-size: clamp(19px, 2.6vw, 24px); line-height: 1.45; }
+.giving .receipts { margin-top: 28px; }
+@media (max-width: 560px) { .cause { grid-template-columns: 1fr; gap: 6px; padding: 20px 0; } }
+
+/* ---- why ------------------------------------------------------------------ */
+.why {
+  max-width: 860px; margin: 0 auto;
+  padding: 90px clamp(24px, 6vw, 72px) 130px;
+}
+.why p.big {
+  font-weight: 300; font-size: clamp(24px, 3.6vw, 32px);
+  line-height: 1.5; letter-spacing: -.008em; max-width: 30ch; margin-bottom: 56px;
+}
+.why p.big i { font-style: italic; color: var(--accent); }
+.badge {
+  display: inline-block; font-family: "Spline Sans Mono", monospace;
+  font-size: 13px; letter-spacing: .16em; text-transform: uppercase;
+  color: var(--ink); background: transparent;
+  border: 1px solid var(--ink);
+  padding: 17px 26px; text-decoration: none;
+}
+.badge small { display: block; font-size: 10px; color: var(--muted); letter-spacing: .12em; margin-top: 5px; }
+footer {
+  display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px;
+  padding: 24px clamp(24px, 6vw, 72px);
+  border-top: 1px solid var(--hairline);
+}
+footer a { color: var(--muted); text-decoration: none; }
+footer a:hover { color: var(--accent); }
+footer .mono { font-size: 11px; }
+</style>
+</head>
+<body>
+<div class="ambient" aria-hidden="true"><i></i><i></i></div>
+
+<header>
+  <a class="mark" href="/">P<span>.</span></a>
+  <span class="mono" id="date"></span>
+</header>
+
+<main>
+  <section class="fold">
+    <span class="mono rise" id="eyebrow" style="transition-delay:.1s">Today's drop</span>
+    <p id="drop" class="rise" style="transition-delay:.45s"></p>
+
+    <div class="rise" style="transition-delay:1.1s">
+      <div class="scale" id="scale">
+        <p class="bignum" id="bignum"></p>
+        <div class="glyphrow" id="glyphrow" aria-hidden="true"></div>
+        <p class="mono scaleline" id="scaleline"></p>
+      </div>
+      <div class="meta">
+        <span class="mono" id="statline"></span>
+        <span class="mono"><a id="source" href="#" target="_blank" rel="noopener"></a></span>
+      </div>
+      <p class="scrollcue mono"><a href="#ritual">There's a new one every morning ↓</a></p>
+    </div>
+  </section>
+
+  <section class="ritual" id="ritual">
+    <h2>Every morning, one small ritual.</h2>
+    <div class="beat">
+      <span class="n">The command</span>
+      <p class="what">We tell you to do something ordinary. <i>Go to your sink and pour a glass of water.</i></p>
+    </div>
+    <div class="beat">
+      <span class="n">The question</span>
+      <p class="what">You do it, and answer one question. <i>Can you safely drink it?</i></p>
+    </div>
+    <div class="beat">
+      <span class="n">The drop</span>
+      <p class="what">Then we tell you the truth: 2.1 billion people can't. <i>Be grateful.</i></p>
+    </div>
+  </section>
+
+  <section class="giving" id="giving">
+    <h2>A tenth goes back.</h2>
+    <p class="lead">We give a tenth of what Perspekt earns to the ordinary things the drops are about.</p>
+    <div class="cause">
+      <span class="n">Water</span>
+      <p class="what">Safe water at the tap.</p>
+    </div>
+    <div class="cause">
+      <span class="n">Sight</span>
+      <p class="what">Cataract surgery and glasses.</p>
+    </div>
+    <div class="cause">
+      <span class="n">Light</span>
+      <p class="what">Solar light where the grid doesn't reach.</p>
+    </div>
+    <div class="cause">
+      <span class="n">Food</span>
+      <p class="what">School meals, every school day.</p>
+    </div>
+    <p class="receipts mono">In the app, you tell us which of these matters most to you — it helps decide where our giving goes. Receipts published every year.</p>
+  </section>
+
+  <section class="why">
+    <p class="big">Every statistic is real, sourced, and re-verified every year. Because gratitude built on the truth is the kind that <i>lasts</i>.</p>
+    <a class="badge" href="#" aria-disabled="true">Coming soon to the App&nbsp;Store<small>iPhone · free drop daily</small></a>
+  </section>
+</main>
+
+<footer>
+  <span class="mono">© 2026 Perspekt</span>
+  <span class="mono"><a href="privacy.html">Privacy</a> &nbsp;·&nbsp; <a href="support.html">Support</a></span>
+</footer>
+
+<script>
+fetch("rotation.json").then(r => r.json()).then(rotation => {
+  const ref = new Date(2026, 6, 1);
+  const now = new Date();
+  const startOfDay = d => new Date(d.getFullYear(), d.getMonth(), d.getDate());
+  const days = Math.round((startOfDay(now) - startOfDay(ref)) / 86400000);
+  const n = rotation.length;
+  const drop = rotation[((days % n) + n) % n];
+
+  document.getElementById("date").textContent = now.toLocaleDateString("en-US",
+    { weekday: "long", month: "long", day: "numeric" });
+  document.getElementById("drop").textContent = drop.copy;
+  document.getElementById("statline").textContent = drop.statLine;
+  const src = document.getElementById("source");
+  src.textContent = drop.sourceName;
+  src.href = drop.sourceUrl;
+
+  document.querySelectorAll(".rise").forEach(el => el.classList.add("in"));
+
+  if (drop.scale && drop.numerator >= 1e6) {
+    document.getElementById("bignum").textContent = drop.numerator.toLocaleString("en-US");
+    document.getElementById("scaleline").textContent = "that's " + drop.scale;
+    renderGlyphs(drop.scaleViz);
+  } else {
+    document.getElementById("scale").style.display = "none";
+  }
+});
+
+const STADIUM = '<svg class="stadium" viewBox="0 -960 960 960" fill="currentColor">' +
+  '<path d="M120-712v-96q0-11 9.5-17t19.5-1l95 48q11 5 11 18t-11 18l-95 48q-10 5-19.5-1t-9.5-17Zm600 0v-96q0-11 9.5-17t19.5-1l95 48q11 5 11 18t-11 18l-95 48q-10 5-19.5-1t-9.5-17Zm-280-40v-96q0-11 9.5-17t19.5-1l95 48q11 5 11 18t-11 18l-95 48q-10 5-19.5-1t-9.5-17ZM336-88q-98-11-177-39.5T80-200v-360q0-25 31.5-46.5t85.5-38q54-16.5 127-26t156-9.5q83 0 156 9.5t127 26q54 16.5 85.5 38T880-560v360q0 45-79.5 73.5T623-87q-9 1-16-5.5t-7-15.5v-52q0-50-35-85t-85-35q-50 0-85 35t-35 85v51q0 10-7 16t-17 5Zm144-432q97 0 167.5-11.5T760-558q0-5-76-23.5T480-600q-128 0-204 18.5T200-558q42 15 112.5 26.5T480-520Z"/></svg>';
+
+const FLAGS = {
+  jp: '<svg class="flag" viewBox="0 0 39 26"><rect width="39" height="26" fill="#F6F4F0"/><circle cx="19.5" cy="13" r="6.8" fill="#BC352D"/></svg>',
+  us: '<svg class="flag" viewBox="0 0 39 26"><rect width="39" height="26" fill="#F6F4F0"/>' +
+      '<g fill="#B8443C"><rect y="0" width="39" height="3.7"/><rect y="7.4" width="39" height="3.7"/><rect y="14.9" width="39" height="3.7"/><rect y="22.3" width="39" height="3.7"/></g>' +
+      '<rect width="17" height="14.9" fill="#42527E"/>' +
+      '<g fill="#F6F4F0"><circle cx="4" cy="3.5" r="1"/><circle cx="8.5" cy="3.5" r="1"/><circle cx="13" cy="3.5" r="1"/><circle cx="6.2" cy="7.4" r="1"/><circle cx="10.8" cy="7.4" r="1"/><circle cx="4" cy="11.3" r="1"/><circle cx="8.5" cy="11.3" r="1"/><circle cx="13" cy="11.3" r="1"/></g></svg>',
+  cn: '<svg class="flag" viewBox="0 0 39 26"><rect width="39" height="26" fill="#C6403A"/>' +
+      '<path fill="#F2CE60" d="M8 4.2l1.5 4.6h4.8L10.4 11.6l1.5 4.6L8 13.4l-3.9 2.8 1.5-4.6L1.7 8.8h4.8z"/>' +
+      '<g fill="#F2CE60"><circle cx="17" cy="4" r="1.2"/><circle cx="19.5" cy="7.5" r="1.2"/><circle cx="19.5" cy="12" r="1.2"/><circle cx="17" cy="15.5" r="1.2"/></g></svg>',
+  eu: '<svg class="flag" viewBox="0 0 39 26"><rect width="39" height="26" fill="#3F4E85"/>' +
+      '<g fill="#F2CE60">' + Array.from({length:12}, (_,i) => { const a = i * Math.PI / 6; return '<circle cx="' + (19.5 + 7.5 * Math.sin(a)).toFixed(1) + '" cy="' + (13 - 7.5 * Math.cos(a)).toFixed(1) + '" r="1.1"/>'; }).join('') + '</g></svg>',
+  in: '<svg class="flag" viewBox="0 0 39 26"><rect width="39" height="8.7" fill="#DE9A4E"/><rect y="8.7" width="39" height="8.7" fill="#F6F4F0"/><rect y="17.3" width="39" height="8.7" fill="#4E7A4C"/>' +
+      '<circle cx="19.5" cy="13" r="3.4" fill="none" stroke="#42527E" stroke-width="1"/><circle cx="19.5" cy="13" r="0.8" fill="#42527E"/></svg>'
+};
+
+function renderGlyphs(viz) {
+  const row = document.getElementById("glyphrow");
+  if (!viz) { row.style.display = "none"; return; }
+  if (viz.kind === "stadium") {
+    row.innerHTML = STADIUM.repeat(viz.count || 1);
+  } else if (viz.kind === "flags") {
+    row.innerHTML = viz.flags.map(f => FLAGS[f] || "").join('<span class="plus">+</span>');
+  }
+}
+</script>
+</body>
+</html>

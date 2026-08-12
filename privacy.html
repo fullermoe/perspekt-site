@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Perspekt — Privacy</title>
+<style>
+@font-face { font-family: "Newsreader"; src: url("fonts/Newsreader.ttf") format("truetype"); font-weight: 200 800; }
+@font-face { font-family: "Spline Sans Mono"; src: url("fonts/SplineSansMono.ttf") format("truetype"); font-weight: 300 700; }
+:root { --bg:#F4F2EB; --ink:#1E2A28; --muted:#6E7672; --accent:#375C52; --hairline:#DAD6C9; }
+@media (prefers-color-scheme: dark) {
+  :root { --bg:#141B1A; --ink:#E8E5DA; --muted:#8A928D; --accent:#6FA293; --hairline:#2A3330; }
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { background: var(--bg); }
+body { background: var(--bg); color: var(--ink); font-family: "Newsreader", Georgia, serif; }
+.page { max-width: 640px; margin: 0 auto; padding: 48px clamp(24px, 6vw, 64px) 96px; }
+.mono { font-family: "Spline Sans Mono", monospace; font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
+a.mark { font-weight: 300; font-size: 30px; color: var(--ink); text-decoration: none; }
+a.mark span { color: var(--accent); }
+h1 { font-weight: 300; font-size: 34px; margin: 48px 0 24px; }
+p { font-size: 19px; font-weight: 300; line-height: 1.6; margin-bottom: 18px; max-width: 56ch; }
+a { color: var(--accent); }
+</style>
+</head>
+<body>
+<div class="page">
+  <a class="mark" href="/">P<span>.</span></a>
+  <h1>Privacy</h1>
+  <p>Perspekt collects no data. None.</p>
+  <p>There are no accounts, no analytics, no tracking, and no servers of ours holding anything about you. The app runs entirely on your device. Your daily answers, your settings, and your cause preference stay on your phone and never leave it.</p>
+  <p>Purchases are handled by Apple through the App Store; we never see your payment details. If you tap a source link, you leave the app for that organization's website, which has its own privacy practices.</p>
+  <p>If this policy ever changes, this page will say so plainly, in words this size.</p>
+  <p class="mono" style="margin-top:48px;">Last updated August 2026 · <a href="mailto:hello@perspekt.app">hello@perspekt.app</a></p>
+</div>
+</body>
+</html>
