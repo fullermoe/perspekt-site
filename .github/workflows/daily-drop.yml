@@ -1,0 +1,17 @@
+name: Post daily drop to Instagram
+on:
+  schedule:
+    - cron: "5 14 * * *"   # 9:05 AM Central (8:05 CST) — just after the app's 8:04 drop
+  workflow_dispatch: {}
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - name: Post today's card
+        env:
+          IG_USER_ID: ${{ secrets.IG_USER_ID }}
+          META_ACCESS_TOKEN: ${{ secrets.META_ACCESS_TOKEN }}
+        run: python scripts/post_daily.py
